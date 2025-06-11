@@ -112,9 +112,6 @@
       },
       {
         "$ref": "#/texts/38"
-      },
-      {
-        "$ref": "#/texts/39"
       }
     ],
     "content_layer": "body",
@@ -129,6 +126,12 @@
       },
       "children": [
         {
+          "$ref": "#/texts/40"
+        },
+        {
+          "$ref": "#/texts/41"
+        },
+        {
           "$ref": "#/texts/11"
         },
         {
@@ -139,6 +142,9 @@
         },
         {
           "$ref": "#/texts/14"
+        },
+        {
+          "$ref": "#/texts/39"
         }
       ],
       "content_layer": "body",
@@ -1263,16 +1269,46 @@
       "text": "of America, N.A., and affiliated banks, Member FDIC and wholly owned subsidiaries of Bank of America Corporation. Banking products are provided by Bank \u00a9 2024 Bank of America Corporation. 6176409 | 00-14-9324 | ALL STATES 00-14-9324NSB"
     },
     {
-      "self_ref": "#/texts/39",
+      "self_ref": "#/mine/1",
       "parent": {
-        "$ref": "#/body"
+        "$ref": "#/groups/0"
       },
       "children": [],
       "content_layer": "body",
-      "label": "text",
+      "label": "list_item",
       "prov": [],
-      "orig": "This is some extra text that I am adding to the bottom of the document",
-      "text": "This is some extra text that I am adding to the bottom of the document"
+      "orig": "This is my new list item",
+      "text": "This is my new list item",
+      "enumerated": false,
+      "marker": "-"
+    },
+    {
+      "self_ref": "#/mine/1",
+      "parent": {
+        "$ref": "#/groups/0"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "list_item",
+      "prov": [],
+      "orig": "This is my new list item",
+      "text": "This is my new list item",
+      "enumerated": false,
+      "marker": "-"
+    },
+    {
+      "self_ref": "#/mine/1",
+      "parent": {
+        "$ref": "#/groups/0"
+      },
+      "children": [],
+      "content_layer": "body",
+      "label": "list_item",
+      "prov": [],
+      "orig": "This is my new list item",
+      "text": "This is my new list item",
+      "enumerated": false,
+      "marker": "-"
     }
   ],
   "pictures": [
