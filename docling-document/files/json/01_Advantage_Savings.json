@@ -112,9 +112,6 @@
       },
       {
         "$ref": "#/texts/38"
-      },
-      {
-        "$ref": "#/texts/39"
       }
     ],
     "content_layer": "body",
@@ -1261,18 +1258,6 @@
       ],
       "orig": "of America, N.A., and affiliated banks, Member FDIC and wholly owned subsidiaries of Bank of America Corporation. Banking products are provided by Bank \u00a9 2024 Bank of America Corporation. 6176409 | 00-14-9324 | ALL STATES 00-14-9324NSB",
       "text": "of America, N.A., and affiliated banks, Member FDIC and wholly owned subsidiaries of Bank of America Corporation. Banking products are provided by Bank \u00a9 2024 Bank of America Corporation. 6176409 | 00-14-9324 | ALL STATES 00-14-9324NSB"
-    },
-    {
-      "self_ref": "#/texts/39",
-      "parent": {
-        "$ref": "#/body"
-      },
-      "children": [],
-      "content_layer": "body",
-      "label": "text",
-      "prov": [],
-      "orig": "This is some extra text that I am adding to the bottom of the document",
-      "text": "This is some extra text that I am adding to the bottom of the document"
     }
   ],
   "pictures": [

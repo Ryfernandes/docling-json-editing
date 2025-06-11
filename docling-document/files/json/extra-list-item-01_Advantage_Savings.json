@@ -112,9 +112,6 @@
       },
       {
         "$ref": "#/texts/38"
-      },
-      {
-        "$ref": "#/texts/39"
       }
     ],
     "content_layer": "body",
@@ -139,6 +136,9 @@
         },
         {
           "$ref": "#/texts/14"
+        },
+        {
+          "$ref": "#/texts/39"
         }
       ],
       "content_layer": "body",
@@ -1265,14 +1265,16 @@
     {
       "self_ref": "#/texts/39",
       "parent": {
-        "$ref": "#/body"
+        "$ref": "#/groups/0"
       },
       "children": [],
       "content_layer": "body",
-      "label": "text",
+      "label": "list_item",
       "prov": [],
-      "orig": "This is some extra text that I am adding to the bottom of the document",
-      "text": "This is some extra text that I am adding to the bottom of the document"
+      "orig": "This is an item to add onto the end of the list",
+      "text": "This is an item to add onto the end of the list",
+      "enumerated": false,
+      "marker": "-"
     }
   ],
   "pictures": [
