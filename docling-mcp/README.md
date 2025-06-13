@@ -16,35 +16,44 @@ Lastly, we should explore configuring a client other than Claude for Desktop. Th
 
 ## Current Tools
 
-There are 13 tools currently in the Docling-MCP project
+There are 15 tools currently in the Docling-MCP project:
 
-```is_document_in_local_cache```
+**[Conversion](https://github.com/docling-project/docling-mcp/blob/main/docling_mcp/tools/conversion.py)**
 
-```convert_pdf_document_into_json_docling_document_from_uri_path```
+```is_document_in_local_cache``` - This is a utility function that can be utilized by the model before taking other actions on a document. It checks if a cache key (string) that is used to access existing documents is present in the local cache.
 
-```convert_attachments_into_docling_document```
+```convert_pdf_document_into_json_docling_document_from_uri_path``` - This function can accept either relative paths or URI's to remote files (PDF's). It will generate a cache key based on the source of the document, and will return if this key already exists. If the cache key is new, the tool converts the PDF to a Docling Document and stores it in the local document cache. Lastly, it adds a text item as furniture (not visible in markdown conversion) to the body of the document that specifies the original source of the converted document. This text item is added to the stack cache (reference for last item added to a document)
 
-```create_new_docling_document```
+```convert_attachments_into_docling_document``` - This function is supposed to support conversions for PDF files attached in Claude Desktop. However, it does not appear to have this functionality added as of yet.
 
-```export_docling_document_to_markdown```
+**[Generation](https://github.com/docling-project/docling-mcp/blob/main/docling_mcp/tools/generation.py)**
 
-```save_docling_document```
+```create_new_docling_document``` - This function instantiates a blank Docling Document that other tools can add to. The function creates a cache key for the document using the prompt passed into the tool and adds this prompt as a furniture text item (not visible in markdown conversion) to the body of the document. This text item is added to the stack cache as a starting anchor for where to add content to the document.
 
-```add_title_to_docling_document```
+```export_docling_document_to_markdown``` - This function simply executes the ```export_to_markdown()``` function on the Docling Document with the given cache key. It returns this markdown export as a string, formatted alongside the document's key. This function was posed to the client in prompts as a way to check/see the results of other tools that it has applied to a document.
 
-```add_section_heading_to_docling_document```
+```save_docling_document``` - This function saves the JSON and markdown versions of the Docling Document with the specified cache key in the cache directory (on the disk). By default, this cache directory sits within the docling-mcp directory, but its path can be specified as an environment variable. The files are named with their cache key. There don't appear to be checks for file overwrite.
 
-```open_list_in_docling_document```
+```add_title_to_docling_document``` - This function implements the ```add_title()``` function and appends a title with the specified text to the Docling Document. Titles cannot live inside of lists, so there is a check to ensure that the top of the local stack cache is not a list/ordered list. After adding the title, the stack cache is updated to have this title as the top item.
 
-```close_list_in_docling_document```
+```add_section_heading_to_docling_document``` - This function implements the ```add_heading()``` function and appends a section heading with the specified text/heading level to the Docling Document. Headings cannot live inside of lists, so there is a check to ensure that the top of the local stack cache is not a list/ordered list. After adding the section heading, the stack cache is updated to have this heading as the top item.
 
-```add_listitem_to_list_in_docling_document```
+```add_paragraph_to_docling_document``` - This function implements the ```add_text()``` function and appends a "paragraph" with the specified text to the Docling Document. Paragraphs cannot live inside of lists, so there is a check to ensure that the top of the local stack cache is not a list/ordered list. After adding the paragraph, the stack cache is updated to have this text item as the top item.
 
-```add_table_in_html_format_to_docling_document```
 
-```export_docling_document_to_vector_db```
+```open_list_in_docling_document``` - This function implements the ```add_group()``` function and appends a new list to the body of the Docling Document. Once the group is opened, it is appended to the top of the stack cache. There are no checks to see if another group is open, and the functionality of this tool will place groups after one other when multiple are open, rather than nesting them.
 
-```search_documents```
+```close_list_in_docling_document``` - This function runs ```pop()``` on the stack cache, which will remove groups that have been placed at the top of the cache. By removing the group from the cache, list items will no longer be added to it, effectively "closing" the group.
+
+```add_listitem_to_list_in_docling_document``` - This function takes three arguments: the document key, text for the list item, and marker for the list item (bullet, number, etc). The function will ensure that a group item sits at the top of the cache. If it does, the function calls ```add_list_item()``` with the group item at the top of the cache set as the parent. This funtion does not touch the stack cache after adding its item, leaving the group item "open."
+
+```add_table_in_html_format_to_docling_document``` - This tool uses the Docling document converter to convert an HTML table passed as a string to a Docling table. It then accesses the data from this Docling table and appends it to the body of the Docling Document stored in the cache. If there is a group open, no error will be thrown, but the table will be added to the end of the body, not to the group. This function seems a bit less refined than the others, and it is not used in the example Claude Desktop integrations.
+
+**[Applications](https://github.com/docling-project/docling-mcp/blob/main/docling_mcp/tools/applications.py)**
+
+```export_docling_document_to_vector_db``` - This function takes a document key as a string and accesses the Docling Document associated with that key. It then uses ```VectoreStoreIndex```, ```StoreContext```, and ```Document``` from ```llama_index.core``` in order to create an index with a vector database of the document. This index is stored in the local index cache under the key "milvus_index".
+
+```search_documents``` - This function accepts a query string and queries the index in the local index cache under the key "milvus_index." It then returns the response from this query, if there is one. The docstring defines the querying as "using semantic similarity to find content that best matches the query, rather than simple keyword matching."
 
 ## Client Performance
 
